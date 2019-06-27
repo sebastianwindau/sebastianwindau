@@ -4,17 +4,61 @@
 		body {
 			display: grid;
 			height: 100%;
-			margin: 0;
-			padding: 0;
+			align-items: center;
+			background-color: #555;
 		}
+
+		#radio-select {
+            display: block;
+            margin: 5px auto;
+            width: 50%;
+            font-family: 'Open Sans', 'Helvetica Neue', 'Segoe UI', 'Calibri', 'Arial', sans-serif;
+            font-size: 18px;
+            background-color: #60666d;
+            border:none
+		}
+        #beatbreaker_radios {
+            margin: 0 auto;
+            width:50%;
+        }
+
 	</style>
 </head>
 <body>
-<div id="beatbreaker_radios"></div>
-
+<div>
+<div>
+	<select id="radio-select">
+		<option value="djbeatbreakermusic%2Fbeatbreaker-house-radio-33">Beatbreaker House Radio 33</option>
+		<option value="djbeatbreakermusic%2Fbeatbreaker-house-radio-32">Beatbreaker House Radio 32</option>
+		<option value="djbeatbreakermusic%2Fbeatbreaker-house-radio-31-mdw-special-edition">Beatbreaker House Radio 31</option>
+		<option value="djbeatbreakermusic%2Fbeatbreaker-house-radio-30-miami-edition">Beatbreaker House Radio 30</option>
+		<option value="djbeatbreakerpodcast%2Fbeatbreaker-house-radio-jan-2016">Beatbreaker House Radio 29</option>
+		<option value="djbeatbreakermusic%2Fbeatbreaker-house-radio-28">Beatbreaker House Radio 28</option>
+		<option value="djbeatbreakermusic%2Fbeatbreaker-house-radio-27-august-2015">Beatbreaker House Radio 27</option>
+		<option value="djbeatbreakermusic%2Fbeatbreaker-house-radio-26-july-2015">Beatbreaker House Radio 26</option>
+		<option value="djbeatbreakermusic%2Fbeatbreaker-house-radio-25-june-2015">Beatbreaker House Radio 25</option>
+		<option value="djbeatbreakermusic%2Fbeatbreaker-house-radio-23-jan-2015">Beatbreaker House Radio 23</option>
+		<option value="djbeatbreakermusic%2Fbeatbreaker-house-radio-22-dec-2014">Beatbreaker House Radio 22</option>
+		<option value="djbeatbreakermusic%2Fbeatbreaker-house-radio-21-sept-2014">Beatbreaker House Radio 21</option>
+		<option value="djbeatbreakermusic%2Fbeatbreaker-house-radio-20-aug-2014">Beatbreaker House Radio 20</option>
+		<option value="djbeatbreakermusic%2Fbeatbreaker-house-radio-19-july-2014">Beatbreaker House Radio 19</option>
+		<option value="djbeatbreakermusic%2Fbeatbreaker-house-radio-18-mdw-edition-2014">Beatbreaker House Radio 18</option>
+	</select>
+</div>
+<div id="beatbreaker_radios">
+	<iframe width="100%" height="120" src="https://www.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fdjbeatbreakermusic%2Fbeatbreaker-house-radio-33%2F" frameborder="0" ></iframe>
+</div>
+</div>
 </body>
 </html>
 <script>
+	select = document.getElementById('radio-select');
+	select.addEventListener('change',function(){
+		beatbreaker_html = '<iframe width="100%" height="120" src="https://www.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2F' + select.value + '%2F" frameborder="0" ></iframe>';
+		document.getElementById('beatbreaker_radios').innerHTML = beatbreaker_html;
+	});
+
+
 	radios = [
 		"djbeatbreakermusic%2Fbeatbreaker-house-radio-33",
 		"djbeatbreakermusic%2Fbeatbreaker-house-radio-32",
@@ -33,9 +77,9 @@
 		"djbeatbreakermusic%2Fbeatbreaker-house-radio-18-mdw-edition-2014"
 	]
 	beatbreaker_html = ""
-	for (i = 0, len = radios.length;  i < len; i++) {
-		 beatbreaker_html += '<iframe width="100%" height="120" src="https://www.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2F' + radios[i] + '%2F" frameborder="0" ></iframe>\n';
-	}
-	document.getElementById('beatbreaker_radios').innerHTML = beatbreaker_html;
+	// for (i = 0, len = radios.length;  i < len; i++) {
+	// 	 beatbreaker_html += '<iframe width="100%" height="120" src="https://www.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2F' + radios[i] + '%2F" frameborder="0" ></iframe>\n';
+	// }
+	// document.getElementById('beatbreaker_radios').innerHTML = beatbreaker_html;
 	
 </script>
