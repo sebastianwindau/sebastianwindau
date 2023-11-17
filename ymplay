@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Album-Galerie</title>
+    <style>
+        body {
+            background: black;
+        }
+        .albumContainer {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .albumPreview {
+            width: 300px;
+            height: 200px;
+            overflow: hidden;
+            margin: 10px;
+            position: relative;
+        }
+
+        .albumPreview img {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+            transition: filter 0.3s ease;
+        }
+
+        .albumPreview img:hover {
+            filter: brightness(80%);
+        }
+
+        .albumPreview p {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            margin: 0;
+            padding: 8px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            text-align: center;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .albumPreview:hover p {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="albumContainer" id="albumContainer"></div>
+
+<script>
+    // Beispiel-URLs
+    var albumURLs = [
+        'https://music.youtube.com/watch?v=pAJpwvBcOI8&list=OLAK5uy_nBy4PdK7Rxh6zi9utDG8nOB913LnsHJtY',
+        'https://music.youtube.com/watch?v=0yQ4f6daCLY&list=OLAK5uy_kA9860JQw_lxlkqkLCoesrr5uDbTl4EFg',
+        'https://music.youtube.com/watch?v=8tIHGscAlew&list=OLAK5uy_kzK3rTutizG-f_F_HIYKfUqYE5-NiZck0',
+        'https://music.youtube.com/watch?v=VYIdr7B9ea0&list=OLAK5uy_kn4QaFJbstnlYkNX5SkSJ8_Vh7kY7tIuI',
+        'https://music.youtube.com/watch?v=TODRg5iOeQ0&list=OLAK5uy_nLP_WS35Y7ryi2F3d20uv4f9zTU_7Y6Wo',
+        'https://music.youtube.com/watch?v=SjSEIl9iS3U&list=OLAK5uy_lBubg02dET7KJM4uPiOClxDQNJw7e7uPg',
+        // Füge weitere URLs hinzu
+    ];
+
+    var albumContainer = document.getElementById('albumContainer');
+
+    albumURLs.forEach(function (albumURL) {
+        // API-Anfrage erstellen
+        var requestUrl = `https://www.youtube.com/oembed?url=${albumURL}&format=json`;
+
+        // API-Anfrage durchführen
+        fetch(requestUrl)
+            .then(response => response.json())
+            .then(data => {
+                // URL des Thumbnails aus der API-Antwort extrahieren
+                var thumbnailUrl = data.thumbnail_url;
+
+                // Vorschaubild auf der Webseite anzeigen
+                var albumPreviewDiv = document.createElement('div');
+                albumPreviewDiv.className = 'albumPreview';
+
+                var imgElement = document.createElement('img');
+                imgElement.src = thumbnailUrl;
+                imgElement.alt = 'Album Cover';
+
+                var linkElement = document.createElement('a');
+                linkElement.href = albumURL;
+                linkElement.target = '_blank';
+
+                linkElement.appendChild(imgElement);
+                albumPreviewDiv.appendChild(linkElement);
+
+                // Klick-Event hinzufügen
+                albumPreviewDiv.addEventListener('click', function () {
+                    // Öffne die YouTube Music App
+                    window.location.href = 'https://music.youtube.com/';
+                });
+
+                albumContainer.appendChild(albumPreviewDiv);
+            })
+            .catch(error => console.error('Fehler beim Abrufen der Daten', error));
+    });
+</script>
+
+</body>
+</html>
